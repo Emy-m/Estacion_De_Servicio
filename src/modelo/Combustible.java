@@ -4,40 +4,33 @@ import java.time.LocalDateTime;
 
 public abstract class Combustible {
 	protected String nombreCombustible;
-	protected double precioPorLitro;
-	
+	protected PrecioPorLitroCombustible precioPorLitro;
+
 	protected Combustible(String nombreCombustible, double precioPorLitro) {
 		if (stringVacio(nombreCombustible) || stringNulo(nombreCombustible)) {
 			throw new DatoInvalidoException("nombre del combustible");
 		}
-		if (precioPorLitroInvalido(precioPorLitro)) {
-			throw new DatoInvalidoException("precio por litro");
-		}
-		
+
 		this.nombreCombustible = nombreCombustible;
-		this.precioPorLitro = precioPorLitro;
+		this.precioPorLitro = new PrecioPorLitroCombustible(precioPorLitro);
 	}
-	
+
 	public String obtenerNombreCombustible() {
 		return nombreCombustible;
 	}
-	
+
 	private boolean stringVacio(String string) {
 		return string.isBlank();
 	}
-	
+
 	private boolean stringNulo(String string) {
 		return string == null;
 	}
-	
-	private boolean precioPorLitroInvalido(double precioPorLitro) {
-		return precioPorLitro <= 0;
-	}
-	
+
 	public abstract double devolverDescuentoDeHoy(LocalDateTime fechaDeHoy);
-	
+
 	public abstract double devolverDescuentoDeHoy(LocalDateTime fechaDeHoy, double litrosCargados);
-	
+
 	public abstract double calcularMonto(LocalDateTime fechaDeHoy, double litrosCargados);
 
 	@Override

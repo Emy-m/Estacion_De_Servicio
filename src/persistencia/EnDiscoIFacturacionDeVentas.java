@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import modelo.DatoInvalidoException;
-import modelo.IAlmacenamiento;
+import modelo.IFacturacionDeVentas;
 import modelo.Venta;
 
-public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
-	
+public class EnDiscoIFacturacionDeVentas implements IFacturacionDeVentas {
+
 	private String tuDireccion;
-	
-	public EnDiscoIAlmacenamiento(String tuDireccion) {
+
+	public EnDiscoIFacturacionDeVentas(String tuDireccion) {
 		this.tuDireccion = tuDireccion;
 	}
 
@@ -33,7 +33,7 @@ public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
 			archivo.write(venta.toString() + "\n");
 			archivo.close();
 		} catch (IOException e) {
-			throw new PersistenciaException("Error de entrada/salida");
+			throw new PersistenciaException("Error de entrada/salida", e);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
 		try {
 			return Files.lines(Paths.get(tuDireccion)).anyMatch(linea -> linea.contains(venta.toString()));
 		} catch (IOException e) {
-			throw new PersistenciaException("Error de entrada/salida");
+			throw new PersistenciaException("Error de entrada/salida", e);
 		}
 	}
 
@@ -53,16 +53,16 @@ public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
 			bufReader = new BufferedReader(new FileReader(tuDireccion));
 			ArrayList<String> listOfLines = new ArrayList<String>();
 
-		    String line = bufReader.readLine();
-		    while (line != null) {
-		      listOfLines.add(line);
-		      line = bufReader.readLine();
-		    }
+			String line = bufReader.readLine();
+			while (line != null) {
+				listOfLines.add(line);
+				line = bufReader.readLine();
+			}
 
-		    bufReader.close();
-		    return listOfLines;
+			bufReader.close();
+			return listOfLines;
 		} catch (IOException e) {
-			throw new PersistenciaException("Error de Entrada/Salida");
+			throw new PersistenciaException("Error de Entrada/Salida", e);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
 		try {
 			scaner = new Scanner(new File(tuDireccion));
 			ArrayList<String> ventas = new ArrayList<String>();
-			while (scaner.hasNext()){
+			while (scaner.hasNext()) {
 				LocalDate fecha = formatoValido(scaner.next().split(",")[0]);
 				if (fechaEnRango(fecha, fechaInicio, fechaFin)) {
 					ventas.add(scaner.next());
@@ -81,20 +81,21 @@ public class EnDiscoIAlmacenamiento implements IAlmacenamiento {
 			scaner.close();
 			return ventas;
 		} catch (FileNotFoundException e) {
-			throw new PersistenciaException("Error de entrada/salida");
+			throw new PersistenciaException("Error de entrada/salida", e);
 		}
 	}
-	
+
 	private LocalDate formatoValido(String fecha) {
-        try {
-        	DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        	return LocalDate.parse(fecha, formato);
-        } catch (IllegalArgumentException | DateTimeParseException e) {
-            throw new DatoInvalidoException("fechas");
-        }
-    }
+		try {
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			return LocalDate.parse(fecha, formato);
+		} catch (IllegalArgumentException | DateTimeParseException e) {
+			throw new DatoInvalidoException("fechas", e);
+		}
+	}
 
 	private boolean fechaEnRango(LocalDate fecha, LocalDate fechaInicial, LocalDate fechaFin) {
-		return (fechaInicial.isBefore(fecha) || fechaInicial.isEqual(fecha)) && (fechaFin.isEqual(fecha) || fechaFin.isAfter(fecha));
+		return (fechaInicial.isBefore(fecha) || fechaInicial.isEqual(fecha))
+				&& (fechaFin.isEqual(fecha) || fechaFin.isAfter(fecha));
 	}
 }

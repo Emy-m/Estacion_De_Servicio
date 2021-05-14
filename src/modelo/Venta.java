@@ -7,7 +7,7 @@ public class Venta {
 	private LocalDateTime fechaYHora;
 	private double litrosCargados;
 	private double monto;
-	
+
 	public Venta(double litrosCargados, double monto, LocalDateTime fechaYHora) {
 		if (litrosInvalidos(litrosCargados)) {
 			throw new DatoInvalidoException("litros cargados");
@@ -15,7 +15,7 @@ public class Venta {
 		if (montoInvalido(monto)) {
 			throw new DatoInvalidoException("monto");
 		}
-		
+
 		this.fechaYHora = fechaYHora;
 		this.litrosCargados = litrosCargados;
 		this.monto = monto;
@@ -28,23 +28,23 @@ public class Venta {
 	private boolean litrosInvalidos(double litrosCargados) {
 		return litrosCargados <= 0;
 	}
-	
+
 	private String fechaYHoraFormateada(LocalDateTime unaFecha) {
 		return unaFecha.format(DateTimeFormatter.ofPattern("d/MM/yyyy '-' H:m:s"));
 	}
-	
+
 	private boolean compararFechaYHora(LocalDateTime unaFecha, LocalDateTime otraFecha) {
 		return fechaYHoraFormateada(unaFecha).equals(fechaYHoraFormateada(otraFecha));
 	}
-	
+
 	public LocalDateTime devolverFechaYHora() {
 		return this.fechaYHora;
 	}
-	
+
 	public double devolverLitrosCargados() {
 		return this.litrosCargados;
 	}
-	
+
 	public double devolverMonto() {
 		return this.monto;
 	}
@@ -67,7 +67,8 @@ public class Venta {
 			if (other.fechaYHora != null)
 				return false;
 		} else if (!compararFechaYHora(fechaYHora, other.fechaYHora)) {
-			return false;}
+			return false;
+		}
 		if (Double.doubleToLongBits(litrosCargados) != Double.doubleToLongBits(other.litrosCargados))
 			return false;
 		if (Double.doubleToLongBits(monto) != Double.doubleToLongBits(other.monto))

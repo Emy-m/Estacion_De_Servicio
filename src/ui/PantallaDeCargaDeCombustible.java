@@ -15,29 +15,29 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import modelo.SurtidorDeCombustible;
+import modelo.ISurtidor;
 
 public class PantallaDeCargaDeCombustible extends JFrame {
 	private JComboBox<String> combustible;
 	private JTextField litros;
-	private SurtidorDeCombustible surtidor;
-	
-	public PantallaDeCargaDeCombustible(SurtidorDeCombustible surtidor) {
+	private ISurtidor surtidor;
+
+	public PantallaDeCargaDeCombustible(ISurtidor surtidor) {
 		this.surtidor = surtidor;
 		setupUIComponents();
 	}
-	
+
 	private void setupUIComponents() {
 		setTitle("Surtidor");
 		setSize(400, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+
 		this.combustible = new JComboBox<String>();
-		for(String nombreCombustible : surtidor.devolverNombresCombustibles()) {
+		for (String nombreCombustible : surtidor.devolverNombresCombustibles()) {
 			this.combustible.addItem(nombreCombustible);
 		}
 		this.litros = new JTextField(10);
-		
+
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new FlowLayout());
@@ -45,7 +45,7 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 		contentPane.add(combustible);
 		contentPane.add(new JLabel("Litros: "));
 		contentPane.add(litros);
-		
+
 		JButton botonConsultar = new JButton("Consultar Precio");
 		botonConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -53,7 +53,7 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 			}
 		});
 		contentPane.add(botonConsultar);
-		
+
 		JButton botonConfirmar = new JButton("Confirmar");
 		botonConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,10 +75,11 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 			JOptionPane.showMessageDialog(this, e1.getMessage());
 		}
 	}
-	
+
 	private void accionBotonConsultar() {
 		try {
-			JOptionPane.showMessageDialog(this, surtidor.consultarMontoAPagar((String) combustible.getSelectedItem(), litros.getText(), LocalDateTime.now()));
+			JOptionPane.showMessageDialog(this, surtidor.consultarMontoAPagar((String) combustible.getSelectedItem(),
+					litros.getText(), LocalDateTime.now()));
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage());
 		}

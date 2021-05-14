@@ -1,24 +1,19 @@
 package modelo;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class CombustibleComun extends Combustible {
-	
-	private static double PRECIO_POR_LITRO_COMUN = 70;
-	private static double PORCENTAJE_DESCUENTO = 0.05;
-	
-	private static int HORA_MINIMA_DESCUENTO = 8;
-	private static int HORA_MAXIMA_DESCUENTO = 10;
+	private HorarioDeDescuento horarioDeDescuento;
 
-	public CombustibleComun() {
-		super("Comun", PRECIO_POR_LITRO_COMUN);
+	public CombustibleComun(double precioPorLitroComun, HorarioDeDescuento horarioDeDescuento) {
+		super("Comun", precioPorLitroComun);
+		this.horarioDeDescuento = horarioDeDescuento;
 	}
 
 	@Override
 	public double devolverDescuentoDeHoy(LocalDateTime fechaDeHoy) {
-		if(horaValidaParaDescuento(fechaDeHoy)) {
-			return PORCENTAJE_DESCUENTO;
+		if (horarioDeDescuento.hayDescuentoEsaHora(fechaDeHoy)) {
+			return horarioDeDescuento.devolverDescuento();
 		}
 		return 0;
 	}
@@ -30,22 +25,6 @@ public class CombustibleComun extends Combustible {
 
 	@Override
 	public double calcularMonto(LocalDateTime fechaDeHoy, double litrosCargados) {
-		return litrosCargados * PRECIO_POR_LITRO_COMUN - (litrosCargados * PRECIO_POR_LITRO_COMUN) * devolverDescuentoDeHoy(fechaDeHoy);
-	}
-	
-	public static void cambiarPrecioPorLitro(double precioPorLitro) {
-		PRECIO_POR_LITRO_COMUN = precioPorLitro;
-	}
-	
-	public static void cambiarPorcentajeDescuento(double porcentaje) {
-		PORCENTAJE_DESCUENTO = porcentaje;
-	}
-
-	private boolean horaValidaParaDescuento(LocalDateTime fechaDeHoy) {
-		LocalTime minimaHora = LocalTime.of(HORA_MINIMA_DESCUENTO, 0);
-		LocalTime maximaHora = LocalTime.of(HORA_MAXIMA_DESCUENTO, 0);
-		LocalTime horaDeHoy = fechaDeHoy.toLocalTime();
-		
-		return horaDeHoy.isAfter(minimaHora) && horaDeHoy.isBefore(maximaHora);
+		return litrosCargados * precioPorLitro.devolverPrecioPorLitro() * (1 - devolverDescuentoDeHoy(fechaDeHoy));
 	}
 }
