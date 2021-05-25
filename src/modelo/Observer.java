@@ -1,5 +1,5 @@
 package modelo;
 
-public interface IEMailObserver {
+public interface Observer {
 	void enviarMensaje(String direccionReceptor, Venta venta);
 }

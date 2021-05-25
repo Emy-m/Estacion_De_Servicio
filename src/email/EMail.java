@@ -11,10 +11,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import modelo.IEMailObserver;
+import modelo.Observer;
 import modelo.Venta;
 
-public class EMail implements IEMailObserver {
+public class EMail implements Observer {
 
 	@Override
 	public void enviarMensaje(String direccionReceptor, Venta venta) {

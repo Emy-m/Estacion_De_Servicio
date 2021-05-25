@@ -10,7 +10,7 @@ public class SurtidorDeCombustible extends Observable implements ISurtidor {
 	private ArrayList<Combustible> combustibles = new ArrayList<Combustible>();
 	private IFacturacionDeVentas almacenamiento;
 
-	public SurtidorDeCombustible(IFacturacionDeVentas almacenamiento, IEMailObserver servicioEmail) {
+	public SurtidorDeCombustible(IFacturacionDeVentas almacenamiento, Observer servicioEmail) {
 		this.almacenamiento = almacenamiento;
 		agregarObservador(servicioEmail);
 	}
