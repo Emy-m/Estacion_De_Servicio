@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
+import email.EMail;
 import modelo.CombustibleComun;
 import modelo.CombustibleSuper;
 import modelo.DiaDeDescuento;
@@ -27,7 +28,10 @@ public class MainEnMemoria {
 					CombustibleComun combustibleComun = new CombustibleComun(70, descuentoParaCombustibleComun);
 					CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 					EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-					SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+					EMail servicioEmail = new EMail();
+
+					SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 					surtidor.agregarCombustible(combustibleComun);
 					surtidor.agregarCombustible(combustibleSuper);
 

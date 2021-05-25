@@ -20,6 +20,7 @@ import modelo.ISurtidor;
 public class PantallaDeCargaDeCombustible extends JFrame {
 	private JComboBox<String> combustible;
 	private JTextField litros;
+	private JTextField email;
 	private ISurtidor surtidor;
 
 	public PantallaDeCargaDeCombustible(ISurtidor surtidor) {
@@ -37,6 +38,7 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 			this.combustible.addItem(nombreCombustible);
 		}
 		this.litros = new JTextField(10);
+		this.email = new JTextField(10);
 
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,6 +47,8 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 		contentPane.add(combustible);
 		contentPane.add(new JLabel("Litros: "));
 		contentPane.add(litros);
+		contentPane.add(new JLabel("Email: "));
+		contentPane.add(email);
 
 		JButton botonConsultar = new JButton("Consultar Precio");
 		botonConsultar.addActionListener(new ActionListener() {
@@ -69,7 +73,8 @@ public class PantallaDeCargaDeCombustible extends JFrame {
 
 	private void accionBotonConfirmar() {
 		try {
-			surtidor.confirmarVenta((String) combustible.getSelectedItem(), litros.getText(), LocalDateTime.now());
+			surtidor.confirmarVenta((String) combustible.getSelectedItem(), litros.getText(), LocalDateTime.now(),
+					email.getText());
 			JOptionPane.showMessageDialog(this, "Exito al guardar");
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(this, e1.getMessage());

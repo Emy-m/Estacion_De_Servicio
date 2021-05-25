@@ -6,12 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class SurtidorDeCombustible implements ISurtidor {
+public class SurtidorDeCombustible extends Observable implements ISurtidor {
 	private ArrayList<Combustible> combustibles = new ArrayList<Combustible>();
 	private IFacturacionDeVentas almacenamiento;
 
-	public SurtidorDeCombustible(IFacturacionDeVentas almacenamiento) {
+	public SurtidorDeCombustible(IFacturacionDeVentas almacenamiento, IEMailObserver servicioEmail) {
 		this.almacenamiento = almacenamiento;
+		agregarObservador(servicioEmail);
 	}
 
 	public void agregarCombustible(Combustible combustible) {
@@ -42,9 +43,12 @@ public class SurtidorDeCombustible implements ISurtidor {
 		return monto;
 	}
 
-	public void confirmarVenta(String nombreCombustible, String litros, LocalDateTime tiempoDeHoy) {
-		almacenamiento.guardarVenta(new Venta(Double.parseDouble(litros),
-				consultarMontoAPagar(nombreCombustible, litros, tiempoDeHoy), tiempoDeHoy));
+	public void confirmarVenta(String nombreCombustible, String litros, LocalDateTime tiempoDeHoy, String email) {
+		Venta venta = new Venta(Double.parseDouble(litros),
+				consultarMontoAPagar(nombreCombustible, litros, tiempoDeHoy), tiempoDeHoy);
+		DireccionEmail direccionEmail = new DireccionEmail(email);
+		almacenamiento.guardarVenta(venta);
+		notificarVenta(direccionEmail.obtenerEmail(), venta);
 	}
 
 	public boolean ventaGuardada(double monto, double litrosCargados, LocalDateTime tiempoDeHoy) {

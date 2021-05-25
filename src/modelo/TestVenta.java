@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import email.EMail;
 import persistencia.EnMemoriaIFacturacionDeVentas;
 
 class TestVenta {
@@ -25,12 +26,15 @@ class TestVenta {
 		CombustibleComun combustibleComun = new CombustibleComun(70, descuentoParaCombustibleComun);
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleComun);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.now();
 
-		surtidor.confirmarVenta(combustibleComun.obtenerNombreCombustible(), "10", tiempoDeHoy);
+		surtidor.confirmarVenta(combustibleComun.obtenerNombreCombustible(), "10", tiempoDeHoy, "emilio@gmail.com");
 		assertTrue(surtidor.ventaGuardada(700, 10, tiempoDeHoy));
 	}
 
@@ -44,7 +48,10 @@ class TestVenta {
 
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 8, 4, 12); // Sabado 8 de mayo.
 
@@ -61,7 +68,10 @@ class TestVenta {
 
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 8, 4, 12); // Sabado 8 de mayo.
 
@@ -78,7 +88,10 @@ class TestVenta {
 
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 4, 12); // Domingo 9 de mayo.
 
@@ -95,7 +108,10 @@ class TestVenta {
 
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 10, 4, 12); // Lunes 10 de mayo.
 
@@ -107,7 +123,10 @@ class TestVenta {
 		HorarioDeDescuento descuentoParaCombustibleComun = new HorarioDeDescuento(8, 10, 0.05);
 		CombustibleComun combustibleComun = new CombustibleComun(70, descuentoParaCombustibleComun);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleComun);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 9, 12); // Dia cualquiera a las 9am, dentro de 8 a 10am
 
@@ -119,7 +138,10 @@ class TestVenta {
 		HorarioDeDescuento descuentoParaCombustibleComun = new HorarioDeDescuento(8, 10, 0.05);
 		CombustibleComun combustibleComun = new CombustibleComun(70, descuentoParaCombustibleComun);
 		EnMemoriaIFacturacionDeVentas almacenamiento = new EnMemoriaIFacturacionDeVentas();
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+
+		EMail servicioEmail = new EMail();
+
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
 		surtidor.agregarCombustible(combustibleComun);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 11, 12); // Un dia a las 11
 
