@@ -40,7 +40,9 @@ public class MainEnDisco {
 
 					EMail servicioEmail = new EMail();
 
-					SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+					SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+					surtidor.agregarObservador(servicioEmail);
+
 					surtidor.agregarCombustible(combustibleComun);
 					surtidor.agregarCombustible(combustibleSuper);
 

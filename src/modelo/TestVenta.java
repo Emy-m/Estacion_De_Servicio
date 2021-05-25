@@ -29,7 +29,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleComun);
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.now();
@@ -51,7 +53,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 8, 4, 12); // Sabado 8 de mayo.
 
@@ -71,7 +75,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 8, 4, 12); // Sabado 8 de mayo.
 
@@ -91,7 +97,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 4, 12); // Domingo 9 de mayo.
 
@@ -111,7 +119,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleSuper);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 10, 4, 12); // Lunes 10 de mayo.
 
@@ -126,7 +136,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleComun);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 9, 12); // Dia cualquiera a las 9am, dentro de 8 a 10am
 
@@ -141,7 +153,9 @@ class TestVenta {
 
 		EMail servicioEmail = new EMail();
 
-		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento, servicioEmail);
+		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
+		surtidor.agregarObservador(servicioEmail);
+
 		surtidor.agregarCombustible(combustibleComun);
 		LocalDateTime tiempoDeHoy = LocalDateTime.of(2021, 5, 9, 11, 12); // Un dia a las 11
 
