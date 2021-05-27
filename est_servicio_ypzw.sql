@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2021 a las 11:54:03
+-- Tiempo de generación: 26-05-2021 a las 04:22:54
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.2
 
@@ -31,7 +31,8 @@ CREATE TABLE `ventas` (
   `ventas_id` int(11) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `litros` double UNSIGNED NOT NULL,
-  `monto` double UNSIGNED NOT NULL
+  `monto` double UNSIGNED NOT NULL,
+  `email_comprador` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

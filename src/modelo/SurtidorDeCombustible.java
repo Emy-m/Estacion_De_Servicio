@@ -44,14 +44,13 @@ public class SurtidorDeCombustible extends Observable implements ISurtidor {
 
 	public void confirmarVenta(String nombreCombustible, String litros, LocalDateTime tiempoDeHoy, String email) {
 		Venta venta = new Venta(Double.parseDouble(litros),
-				consultarMontoAPagar(nombreCombustible, litros, tiempoDeHoy), tiempoDeHoy);
-		DireccionEmail direccionEmail = new DireccionEmail(email);
+				consultarMontoAPagar(nombreCombustible, litros, tiempoDeHoy), tiempoDeHoy, email);
 		almacenamiento.guardarVenta(venta);
-		notificarVenta(direccionEmail.obtenerEmail(), venta);
+		notificar(venta);
 	}
 
-	public boolean ventaGuardada(double monto, double litrosCargados, LocalDateTime tiempoDeHoy) {
-		return almacenamiento.ventaGuardada(new Venta(litrosCargados, monto, tiempoDeHoy));
+	public boolean ventaGuardada(double monto, double litrosCargados, LocalDateTime tiempoDeHoy, String email) {
+		return almacenamiento.ventaGuardada(new Venta(litrosCargados, monto, tiempoDeHoy, email));
 	}
 
 	public ArrayList<String> obtenerVentas() {

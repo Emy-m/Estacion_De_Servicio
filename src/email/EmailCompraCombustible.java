@@ -14,10 +14,14 @@ import javax.mail.internet.MimeMessage;
 import modelo.Observer;
 import modelo.Venta;
 
-public class EMail implements Observer {
+public class EmailCompraCombustible implements Observer {
 
 	@Override
-	public void enviarMensaje(String direccionReceptor, Venta venta) {
+	public void actualizar(Venta venta) {
+		enviarEmail(venta);
+	}
+
+	private void enviarEmail(Venta venta) {
 		String textoMensaje = "Detalle de compra de combustible:\n" + venta.toString();
 		String titulo = "Compra de combustible";
 		String direccionEmisor = "informe_ventas@YPZW.org";
@@ -38,7 +42,7 @@ public class EMail implements Observer {
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(direccionEmisor));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(direccionReceptor));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(venta.devolverEmailComprador()));
 			message.setSubject(titulo);
 			message.setText(textoMensaje);
 

@@ -30,4 +30,21 @@ public class DireccionEmail {
 	public String obtenerEmail() {
 		return this.direccion;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DireccionEmail other = (DireccionEmail) obj;
+		if (direccion == null) {
+			if (other.direccion != null)
+				return false;
+		} else if (!direccion.equals(other.direccion))
+			return false;
+		return true;
+	}
 }

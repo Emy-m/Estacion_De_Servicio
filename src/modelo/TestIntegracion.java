@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import email.EMail;
+import email.EmailCompraCombustible;
 import persistencia.EnBaseDeDatosIFacturacionDeVentas;
 import persistencia.EnDiscoIFacturacionDeVentas;
 
@@ -27,7 +27,7 @@ public class TestIntegracion {
 		EnDiscoIFacturacionDeVentas almacenamiento = new EnDiscoIFacturacionDeVentas(
 				"C:\\Users\\Emy_m\\Desktop\\Venta.txt");
 
-		EMail servicioEmail = new EMail();
+		EmailCompraCombustible servicioEmail = new EmailCompraCombustible();
 
 		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
 		surtidor.agregarObservador(servicioEmail);
@@ -37,7 +37,7 @@ public class TestIntegracion {
 		LocalDateTime tiempoDeHoy = LocalDateTime.now();
 
 		surtidor.confirmarVenta(combustibleComun.obtenerNombreCombustible(), "10", tiempoDeHoy, "emilio@gmail.com");
-		assertTrue(surtidor.ventaGuardada(700, 10, tiempoDeHoy));
+		assertTrue(surtidor.ventaGuardada(700, 10, tiempoDeHoy, "emilio@gmail.com"));
 	}
 
 	@Test
@@ -53,7 +53,7 @@ public class TestIntegracion {
 		CombustibleSuper combustibleSuper = new CombustibleSuper(90, descuentoParaCombustibleSuper);
 		EnBaseDeDatosIFacturacionDeVentas almacenamiento = new EnBaseDeDatosIFacturacionDeVentas();
 
-		EMail servicioEmail = new EMail();
+		EmailCompraCombustible servicioEmail = new EmailCompraCombustible();
 
 		SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
 		surtidor.agregarObservador(servicioEmail);
@@ -63,6 +63,6 @@ public class TestIntegracion {
 		LocalDateTime tiempoDeHoy = LocalDateTime.now();
 
 		surtidor.confirmarVenta(combustibleComun.obtenerNombreCombustible(), "10", tiempoDeHoy, "emilio@gmail.com");
-		assertTrue(surtidor.ventaGuardada(700, 10, tiempoDeHoy));
+		assertTrue(surtidor.ventaGuardada(700, 10, tiempoDeHoy, "emilio@gmail.com"));
 	}
 }

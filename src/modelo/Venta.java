@@ -7,8 +7,9 @@ public class Venta {
 	private LocalDateTime fechaYHora;
 	private double litrosCargados;
 	private double monto;
+	private DireccionEmail direccionCorreoComprador;
 
-	public Venta(double litrosCargados, double monto, LocalDateTime fechaYHora) {
+	public Venta(double litrosCargados, double monto, LocalDateTime fechaYHora, String direccionCorreoComprador) {
 		if (litrosInvalidos(litrosCargados)) {
 			throw new DatoInvalidoException("litros cargados");
 		}
@@ -16,6 +17,7 @@ public class Venta {
 			throw new DatoInvalidoException("monto");
 		}
 
+		this.direccionCorreoComprador = new DireccionEmail(direccionCorreoComprador);
 		this.fechaYHora = fechaYHora;
 		this.litrosCargados = litrosCargados;
 		this.monto = monto;
@@ -33,10 +35,6 @@ public class Venta {
 		return unaFecha.format(DateTimeFormatter.ofPattern("d/MM/yyyy '-' H:m:s"));
 	}
 
-	private boolean compararFechaYHora(LocalDateTime unaFecha, LocalDateTime otraFecha) {
-		return fechaYHoraFormateada(unaFecha).equals(fechaYHoraFormateada(otraFecha));
-	}
-
 	public LocalDateTime devolverFechaYHora() {
 		return this.fechaYHora;
 	}
@@ -49,9 +47,14 @@ public class Venta {
 		return this.monto;
 	}
 
+	public String devolverEmailComprador() {
+		return this.direccionCorreoComprador.obtenerEmail();
+	}
+
 	@Override
 	public String toString() {
-		return fechaYHoraFormateada(fechaYHora) + "," + litrosCargados + "," + monto;
+		return fechaYHoraFormateada(fechaYHora) + "," + litrosCargados + "," + monto + ","
+				+ direccionCorreoComprador.obtenerEmail();
 	}
 
 	@Override
@@ -63,16 +66,17 @@ public class Venta {
 		if (getClass() != obj.getClass())
 			return false;
 		Venta other = (Venta) obj;
+		if (direccionCorreoComprador == null) {
+			if (other.direccionCorreoComprador != null)
+				return false;
+		} else if (!direccionCorreoComprador.equals(other.direccionCorreoComprador))
+			return false;
 		if (fechaYHora == null) {
 			if (other.fechaYHora != null)
 				return false;
-		} else if (!compararFechaYHora(fechaYHora, other.fechaYHora)) {
-			return false;
-		}
-		if (Double.doubleToLongBits(litrosCargados) != Double.doubleToLongBits(other.litrosCargados))
-			return false;
-		if (Double.doubleToLongBits(monto) != Double.doubleToLongBits(other.monto))
+		} else if (!fechaYHora.equals(other.fechaYHora))
 			return false;
 		return true;
 	}
+
 }

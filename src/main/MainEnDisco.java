@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
-import email.EMail;
+import email.EmailCompraCombustible;
 import modelo.CombustibleComun;
 import modelo.CombustibleSuper;
 import modelo.DiaDeDescuento;
@@ -38,7 +38,7 @@ public class MainEnDisco {
 						almacenamiento = new EnDiscoIFacturacionDeVentas(DIRECCION_ARCHIVO);
 					}
 
-					EMail servicioEmail = new EMail();
+					EmailCompraCombustible servicioEmail = new EmailCompraCombustible();
 
 					SurtidorDeCombustible surtidor = new SurtidorDeCombustible(almacenamiento);
 					surtidor.agregarObservador(servicioEmail);

@@ -13,9 +13,9 @@ import modelo.Venta;
 
 public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 
-	private final String ESTRUCTURA_TABLA = "('ventas_id', 'fecha_hora', 'litros', 'monto')";
-	private static final String SQL_INSERT = "insert into ventas values (null, ?, ?, ?)";
-	private static final String SQL_FIND = "select * from ventas where fecha_hora = ? and litros = ? and monto = ?";
+	private final String ESTRUCTURA_TABLA = "('ventas_id', 'fecha_hora', 'litros', 'monto', 'email_comprador')";
+	private static final String SQL_INSERT = "insert into ventas values (null, ?, ?, ?, ?)";
+	private static final String SQL_FIND = "select * from ventas where fecha_hora = ? and email_comprador = ?";
 	private static final String SQL_FIND_ALL = "select * from ventas";
 
 	@Override
@@ -30,6 +30,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 			query.setTimestamp(1, Timestamp.valueOf(venta.devolverFechaYHora()));
 			query.setDouble(2, venta.devolverLitrosCargados());
 			query.setDouble(3, venta.devolverMonto());
+			query.setString(4, venta.devolverEmailComprador());
 
 			query.executeUpdate();
 		} catch (SQLException exception) {
@@ -41,10 +42,6 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 			} catch (Exception e) {
 			} // Por si es nula (no se llego a concretar) o si ocurre un error con la base de
 				// datos
-			try {
-
-			} catch (Exception e) {
-			}
 		}
 	}
 
@@ -67,7 +64,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 
 			if (resultado.next()) {
 				laVenta = new Venta(resultado.getDouble("litros"), resultado.getDouble("monto"),
-						resultado.getTimestamp("fecha_hora").toLocalDateTime());
+						resultado.getTimestamp("fecha_hora").toLocalDateTime(), resultado.getString("email_comprador"));
 				return laVenta.equals(venta);
 			}
 
@@ -77,13 +74,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 		} finally {
 			try {
 				resultado.close();
-			} catch (Exception e) {
-			}
-			try {
 				query.close();
-			} catch (Exception e) {
-			}
-			try {
 				conexion.close();
 			} catch (Exception e) {
 			}
@@ -106,7 +97,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 
 			while (resultado.next()) {
 				venta = new Venta(resultado.getDouble("litros"), resultado.getDouble("monto"),
-						resultado.getTimestamp("fecha_hora").toLocalDateTime());
+						resultado.getTimestamp("fecha_hora").toLocalDateTime(), resultado.getString("email_comprador"));
 				ventas.add(venta.toString());
 			}
 
@@ -116,13 +107,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 		} finally {
 			try {
 				resultado.close();
-			} catch (Exception e) {
-			}
-			try {
 				query.close();
-			} catch (Exception e) {
-			}
-			try {
 				conexion.close();
 			} catch (Exception e) {
 			}
@@ -145,7 +130,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 
 			while (resultado.next()) {
 				venta = new Venta(resultado.getDouble("litros"), resultado.getDouble("monto"),
-						resultado.getTimestamp("fecha_hora").toLocalDateTime());
+						resultado.getTimestamp("fecha_hora").toLocalDateTime(), resultado.getString("email_comprador"));
 
 				if (fechaEnRango(venta.devolverFechaYHora().toLocalDate(), fechaInicial, fechaFin)) {
 					ventas.add(venta.toString());
@@ -158,13 +143,7 @@ public class EnBaseDeDatosIFacturacionDeVentas implements IFacturacionDeVentas {
 		} finally {
 			try {
 				resultado.close();
-			} catch (Exception e) {
-			}
-			try {
 				query.close();
-			} catch (Exception e) {
-			}
-			try {
 				conexion.close();
 			} catch (Exception e) {
 			}

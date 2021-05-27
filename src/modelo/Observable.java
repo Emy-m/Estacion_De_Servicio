@@ -14,9 +14,9 @@ public abstract class Observable {
 		this.observadores.add(obs);
 	}
 
-	protected void notificarVenta(String direccion, Venta venta) {
+	protected void notificar(Venta venta) {
 		for (Observer observer : observadores) {
-			observer.enviarMensaje(direccion, venta);
+			observer.actualizar(venta);
 		}
 	}
 }

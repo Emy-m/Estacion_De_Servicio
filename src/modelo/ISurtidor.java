@@ -14,7 +14,7 @@ public interface ISurtidor {
 
 	void confirmarVenta(String nombreCombustible, String litros, LocalDateTime tiempoDeHoy, String email);
 
-	boolean ventaGuardada(double monto, double litrosCargados, LocalDateTime tiempoDeHoy);
+	boolean ventaGuardada(double monto, double litrosCargados, LocalDateTime tiempoDeHoy, String email);
 
 	ArrayList<String> obtenerVentas();
 
